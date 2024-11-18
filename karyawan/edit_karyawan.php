@@ -72,35 +72,39 @@ if (isset($_GET['nik'])) {
 <div class="container mt-5">
     <h2 class="mb-4">Edit Karyawan</h2>
 
-    <!-- Form to edit karyawan details -->
-    <form action="proses_edit.php" method="POST">
-        <div class="form-group mb-3">
-            <label for="nik">NIK:</label>
-            <input type="text" class="form-control" name="nik" value="<?php echo $row['nik']; ?>" required>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label for="nama">Nama:</label>
-            <input type="text" class="form-control" name="nama" value="<?php echo $row['nama']; ?>" required>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label for="jabatan">Jabatan:</label>
-            <select name="jabatan" class="form-control" required>
-                <option value="admin" <?php if($row['jabatan']=='admin') echo 'selected'; ?>>Admin</option>
-                <option value="kasir" <?php if($row['jabatan']=='kasir') echo 'selected'; ?>>Kasir</option>
-                <option value="koki" <?php if($row['jabatan']=='koki') echo 'selected'; ?>>Koki</option>
-            </select>
-        </div>
-        <div class="form-group mb-3">
-          <label for="penjualan">Penjualan:</label>
-          <input type="text" class="form-control" name="penjualan" value="<?php echo $row['penjualan']; ?>" required>
-        </div>
-        
-        <button type="submit" class="btn btn-primary mr-2">Update</button>
-        <a href="karyawan.php" class="btn btn-secondary ml-2">Batal</a>
-    </form>
-</div>
+    <form action="proses_edit.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="original_nik" value="<?php echo $row['nik']; ?>">
+    
+    <div class="form-group mb-3">
+        <label for="nama">Nama:</label>
+        <input type="text" class="form-control" name="nama" value="<?php echo $row['nama']; ?>" required>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="jabatan">Jabatan:</label>
+        <select name="jabatan" class="form-control" required>
+            <option value="admin" <?php if($row['jabatan']=='admin') echo 'selected'; ?>>Admin</option>
+            <option value="kasir" <?php if($row['jabatan']=='kasir') echo 'selected'; ?>>Kasir</option>
+            <option value="koki" <?php if($row['jabatan']=='koki') echo 'selected'; ?>>Koki</option>
+        </select>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="penjualan">Penjualan:</label>
+        <input type="text" class="form-control" name="penjualan" value="<?php echo $row['penjualan']; ?>" required>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="gambar">Gambar Karyawan:</label>
+        <input type="file" class="form-control" name="gambar">
+        <?php if (!empty($row['gambar'])): ?>
+            <img src="/karyawanupload/<?php echo $row['gambar']; ?>" alt="Karyawan Image" style="max-width: 150px; margin-top: 10px;">
+        <?php endif; ?>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mr-2">Update</button>
+    <a href="karyawan.php" class="btn btn-secondary ml-2">Batal</a>
+</form>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

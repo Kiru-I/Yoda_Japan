@@ -1,4 +1,4 @@
-<?php
+<?php 
 include '../config.php';
 session_start(); // Start the session
 
@@ -52,36 +52,41 @@ if (!isset($_SESSION['nama'])) {
 <div class="container mt-5">
     <h2 class="mb-4">Tambah Karyawan</h2>
     
-    <form action="proses_tambah.php" method="POST">
-        <div class="form-group mb-3">
-            <label for="nik">NIK:</label>
-            <input type="text" class="form-control" id="nik" name="nik" required>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label for="nama">Nama:</label>
-            <input type="text" class="form-control" id="nama" name="nama" required>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label for="jabatan">Jabatan:</label>
-            <select class="form-control" id="jabatan" name="jabatan" required>
-                <option value="admin">Admin</option>
-                <option value="kasir">Kasir</option>
-                <option value="koki">Koki</option>
-            </select>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        
-        <!-- Tombol Tambah dan Batal -->
-        <button type="submit" class="btn btn-primary mr-2">Tambah Karyawan</button>
-        <a href="karyawan.php" class="btn btn-secondary ml-2">Batal</a>
-    </form>
-</div>
+    <form action="proses_tambah.php" method="POST" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <label for="nik">NIK:</label>
+        <input type="text" class="form-control" id="nik" name="nik" required>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="nama">Nama:</label>
+        <input type="text" class="form-control" id="nama" name="nama" required>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="jabatan">Jabatan:</label>
+        <select class="form-control" id="jabatan" name="jabatan" required>
+            <option value="admin">Admin</option>
+            <option value="kasir">Kasir</option>
+            <option value="koki">Koki</option>
+        </select>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    
+    <!-- New Image Input -->
+    <div class="form-group mb-3">
+        <label for="gambar">Upload Gambar:</label>
+        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+    </div>
+    
+    <!-- Buttons -->
+    <button type="submit" class="btn btn-primary mr-2">Tambah Karyawan</button>
+    <a href="karyawan.php" class="btn btn-secondary ml-2">Batal</a>
+</form>
 
 <!-- Link Bootstrap JS and dependencies (Optional) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

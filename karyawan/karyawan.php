@@ -7,6 +7,15 @@ if (!isset($_SESSION['nama'])) {
     header('Location: index.php');
     exit;
 }
+
+$query = "SELECT * FROM karyawan";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if (!$result) {
+    // If the query fails, output an error message
+    die("Error executing query: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +69,7 @@ if (!isset($_SESSION['nama'])) {
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
+                <th>Gambar</th>
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>Jabatan</th>
@@ -68,22 +78,19 @@ if (!isset($_SESSION['nama'])) {
             </tr>
         </thead>
         <tbody>
-            <?php
-            $result = $conn->query("SELECT * FROM karyawan");
-
-            while($row = $result->fetch_assoc()) {
-                echo "<tr>
-                    <td>" . htmlspecialchars($row['nik']) . "</td>
-                    <td>" . htmlspecialchars($row['nama']) . "</td>
-                    <td>" . htmlspecialchars($row['jabatan']) . "</td>
-                    <td>" . htmlspecialchars($row['penjualan']) . "</td>
-                    <td>
-                        <a href='edit_karyawan.php?nik=" . $row['nik'] . "' class='btn btn-warning btn-sm'>Edit</a>
-                        <a href='hapus_karyawan.php?nik=" . $row['nik'] . "' class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin ingin menghapus karyawan ini?')\">Hapus</a>
-                    </td>
-                </tr>";
-            }
-            ?>
+        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+          <tr>
+            <td><img src="karyawanupload/<?php echo htmlspecialchars($row['gambar']); ?>" alt="Menu Image" width="100"></td>
+            <td><?php echo htmlspecialchars($row['nik']); ?></td>
+            <td><?php echo htmlspecialchars($row['nama']); ?></td>
+            <td><?php echo htmlspecialchars($row['jabatan']); ?></td>
+            <td><?php echo htmlspecialchars($row['penjualan']); ?></td>
+            <td>
+                <a href="edit_karyawan.php?nik=<?php echo $row['nik']; ?>" class="btn btn-warning">Edit</a>
+                <a href="hapus_karyawan.php?nik=<?php echo $row['nik']; ?>" class="btn btn-danger">Hapus</a>
+            </td>
+        </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
 </div>
@@ -95,8 +102,4 @@ if (!isset($_SESSION['nama'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
-</html>
-
-<?php
-$conn->close();
-?>
+</html> 
